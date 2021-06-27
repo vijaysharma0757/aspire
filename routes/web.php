@@ -14,5 +14,12 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 
-    $router->post('login', 'AuthController@login');
+});
+
+$router->post('login', 'AuthController@login');
+
+$router->group(['middleware' => ['auth']], function () use ($router) {
+// Matches "/api/profile
+    $router->get('profile', 'AuthController@profile');
+    $router->post('loan', 'LoanController@addLoan');
 });
